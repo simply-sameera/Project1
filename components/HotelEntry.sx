@@ -1,0 +1,34 @@
+import { Link } from 'react-router-dom';
+import RatingStamp from './RatingStamp.jsx';
+
+export default function HotelEntry({ hotel, index }) {
+  const price = Number(hotel.price);
+
+  return (
+    <article className="hotel-entry">
+      <div className="hotel-entry__thumb">
+        <img src={hotel.thumbnail} alt={hotel.name} loading="lazy" />
+      </div>
+
+      <div className="hotel-entry__main">
+        <div className="entry-index">No. {String(index + 1).padStart(3, '0')}</div>
+        <h2 className="hotel-entry__name">{hotel.name}</h2>
+        <div className="hotel-entry__location">
+          <span className="location-chip">{hotel.location}</span>
+        </div>
+        <p className="hotel-entry__desc">{hotel.description}</p>
+      </div>
+
+      <div className="hotel-entry__price">
+        <RatingStamp rating={hotel.rating} />
+        <div className="price-figure">
+          &#8377;{price.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+          <span>per night</span>
+        </div>
+        <Link to={`/hotel/${hotel.id}`} className="view-link">
+          View entry
+        </Link>
+      </div>
+    </article>
+  );
+}
